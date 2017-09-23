@@ -1064,3 +1064,167 @@ catch (e) {
 ```
 
 Finally, know that when a catch block runs, the error no longer "bubbles up" like it would otherwise. The browser will run the catch block and then continue running the next line of code. This is in contrast to an uncaught error, which bubbles up and stops code execution.
+
+## Object Basics
+Objects are a *complex* data type that allow you to bring together common properties and behaviors into a single entity.  Objects provide an excellent way of organizing code that belongs together, help you avoid global variables, and let us represent individual instances of some model.
+
+For instance, you can take the idea of a person and come up with a generalized model of that person’s attributes. A person has a name, and can say hello. Then we can have individual instances of that `person` model. We might have an individual person named "Sue" who greets others by saying "Howdy y'all", and another individual person named "Greta" who greets others by saying "Hi there".  All instances of a person share these traits (they have a name and can greet others).
+
+Objects give us a way of representing instances of an idea or model, and because of that they're used all the time in programming. At the end of this course, in your capstone project, you'll create an app that retrieves data from a third party API and displays it to your user. In your JavaScript code, the results from the API will be represented as an array of objects.
+
+In this lesson you'll learn the syntax for interacting with objects in JavaScript.
+
+Objects are a data structure used to hold *key/value pairs*. If you've ever used a dictionary, you already have an intuitive sense of what a key/value pair is: you look up a word (aka, *key*), and you find its definition (aka, its *value*).
+
+Here's an example of an object representing the classic rock band Led Zeppelin:
+
+```javascript
+const ledZeppelin = {
+  singer: 'Robert Plant',
+  guitar: 'Jimmy Page',
+  bass: 'John Paul Jones',
+  drums: 'Jon Bonham'
+}
+```
+
+
+The curly bracket syntax above (`{}`) is one way we can create a new object. When you create an object like this, it's called an *object literal*. The keys in our `ledZeppelin` object are `singer`, `guitar`, `bass`, and `drums`. The values for these keys are 'Robert Plant', 'Jimmy Page', 'John Paul Jones', and 'Jon Bonham'. Each key is followed by a colon (`:`). Each key/value pair is separated by a comma (`,`).
+
+Notice that the keys in the example above are not enclosed in quotation marks. This is the default way of indicating keys in an object literal, but there are times where you need to use quotation marks. For instance if you need a space or period in a key, you'd need to use quotation marks around the key:
+
+```javascript
+const ledZeppelin2 = {
+  'lead singer': 'Robert Plant',
+  'lead guitar': 'Jimmy Page',
+}
+```
+
+Also, know that the keys in an object must all be *unique* -- that is, each key can be used only once in the object.
+
+The values in an object can be any valid JavaScript data type. In the example above, all the values are strings, but values can also be numbers, booleans, other objects, `null`, or functions.
+
+When an object has a value that is a function, we refer to that key/value pair as a `method`. Here's an example of an object representing a mammal, that features an `evolve` method.
+
+<iframe src="https://repl.it/G9LN/3" width="100%" height="600px">
+
+```javascript
+const mammal = {
+  numEyes: 2,
+  warmBlooded: true,
+  evolve: function() {
+    console.log("I'm not mutating, I'm evolving.");
+    mammal.numEyes ++;
+  }
+}
+
+console.log(`mammal has ${mammal.numEyes} eyes`);
+mammal.evolve();
+console.log(`mammal has ${mammal.numEyes} eyes`);
+```
+</iframe>
+
+
+### Getting values and running methods
+
+Once the object is created, you can *get* values and run object methods in one of two ways: *dot notation* ( `ledZeppelin.singer`) or with *bracket notation* (`ledZeppelin2['lead singer']`). Using the example objects from above, both `ledZeppelin.singer` and `ledZeppelin2['lead singer']` would return the value 'Robert Plant'. Usually we use dot notation to get values from an object, but if you need to get a key with spaces or periods, you *must* use bracket notation.
+
+The same syntax is used to run methods on an object. In the `mammal` example above, we use dot notation to call the `evolve` method.
+
+Note that just like functions outside of objects, an object method can take arguments. Here's an example:
+
+```javascript
+const simpleCalculator = {
+  add: function(a, b) {
+    return a+b;
+  }
+};
+
+simpleCalculator.add(1, 1); // => 2
+```
+
+
+### Adding key/value pairs to an object
+
+Once an object is defined, you can add new key/value pairs to it using either dot or bracket notation. Here's an example:
+
+```javascript
+const myFamily = {
+  lastName: 'Doe',
+  mom: 'Cynthia',
+  dad: 'Paul',
+};
+
+myFamily.sister = 'Lucinda';
+myFamily['brother'] = 'Merle';
+myFamily.sayHi = function() {
+  console.log(`Hello from the ${myFamily.lastName}s`);
+}
+myFamily.sayHi() // => Hello from the Does
+```
+
+
+### Updating values
+
+Updating values in objects is just like adding them.
+
+```javascript
+const foo = {
+  bar: 'bizz'
+};
+
+foo.bar = 'bang';
+```
+
+
+### Deleting key/value pairs
+
+To delete a key/value pair from an object, use the `delete` command:
+
+```javascript
+const foo = {
+  bar: true
+};
+delete foo.bar;
+console.log(foo.bar); // => undefined
+```
+
+
+### Self reference and `this`
+
+In the `myFamily` object we looked at earlier, we added a method called `sayHi` that made use of *self-reference*:
+
+```
+const myFamily = {
+  lastName: 'Doe',
+  mom: 'Cynthia',
+  dad: 'Paul',
+  sayHi: function() {
+    console.log(`Hello from the ${myFamily.lastName}s`);
+  }
+};
+
+myFamily.sayHi() // => Hello from the Does
+```
+
+The `sayHi` method is able to refer to other properties on the object (in this case `lastName`). In this example, we've achieved self reference by repeating the variable name (`myFamily`) inside the `sayHi` method.
+
+Usually the way we do this, though, is with the `this` keyword, which we use to achieve self reference. The example above could be re-written like this:
+
+```javascript
+const myFamily = {
+  lastName: 'Doe',
+  mom: 'Cynthia',
+  dad: 'Paul',
+  sayHi: function() {
+    console.log(`Hello from the ${this.lastName}s`);
+  }
+};
+
+myFamily.sayHi() // => Hello from the Does
+```
+
+
+Instead of reusing the variable name `myFamily`, we use `this`. This is more maintainable because our `sayHi` function is no longer coupled with the variable name.
+
+There's more to learn about `this` in JavaScript (some of it heady), and we'll get a chance to explore it more in the next unit when we discuss using event handlers with jQuery. But for now, as you work with object literals, just understand that in object methods, `this` refers to the object itself, and gives you access to other properties and methods on the object.
+
