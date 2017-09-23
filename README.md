@@ -11,101 +11,12 @@ Lets get started!
 
 ## Programming in JavaScript
 
-HTML and CSS together give you the power to define, structure, and style content, but with the exception of simple CSS effects like animated hover states, up to this point, we have been unable to implement *programs*, and so we've been limited to structuring and styling content.
+Programming is the process of translating a problem stated in plain language into a set of instructions for solving that problem (this is what is meant by the term *algorithm*), and then expressing your algorithm in terms that your computer can understand (that is, expressing it in a programming language).
 
-In this lesson, you'll take your first steps with JavaScript, the programming language that is supported by all modern browsers. 
-
-First we discuss the idea of *programming*, distinct from JavaScript as a particular *programming language*. Programming is the process of translating a problem stated in plain language into a set of instructions for solving that problem (this is what is meant by the term *algorithm*), and then expressing your algorithm in terms that your computer can understand (that is, expressing it in a programming language). To explore the idea of programming, we'll look at a small app that displays numbers from the Fibonacci sequence.
-
-After that, we’ll discuss how JavaScript evolves as a programming language (i.e., how its features get decided on in a specification, and how individual browsers implement the JavaScript specification).
-
-Next we'll describe how to link JavaScript scripts from a webpage.
-
-Then, you'll learn about working with variables before moving on to discuss JavaScript's data types.
-
-Finally, we'll review how you can use Chrome Developer Tools' JavaScript console to execute, debug, and inspect code.
-
-## What is programming?
 A *program*, in simplest terms, is a set of instructions for a computer to carry out. In the context of frontend web development, you might write a program for validating form inputs when the user submits their username and password to a form, or checking to make sure they’ve typed a valid phone number before passing the data to a server. Or you might have a program that retrieves data from the Twitter API and displays an interesting visualization of your user's friend and follower network. There's literally an infinite number of programs you could write.
 
-We write programs to solve a specific problem or provide a specific experience. The skill of programming therefore has two steps: first, programming is finding solutions to problems; second, programming is implementing those solutions in a particular programming language such that your computer can understand and execute your solution.
-
-In this reading, we're going to explore this idea of programming as problem-solving with a brief example: computing the Fibonacci sequence of numbers and displaying them to an end user. We'll see how we can move from stating a problem in plain language to solving and implementing it using JavaScript.
-
-The purpose of this example is not to get you up to speed on JavaScript, but instead to allow us to talk about programming — how problems can be broken down into distinct, elegant functions that specialize in doing a single thing and doing it well.
-
-## The Fibonacci sequence
-
-The [Fibonacci sequence](https://en.wikipedia.org/wiki/Fibonacci_number) describes a sequence of numbers in which each number in the list is the sum of the previous two (with the exception of the first two numbers in the list, 0 and 1).
-
-The first six numbers in the Fibonacci sequence are: 0, 1, 1, 2, 3, 5.
-
-The *algorithm* — or set of instructions — to produce the Fibonacci numbers is as follows:
-
-1. Define an integer value, `n`. `n` determines the length of the list of Fibonacci numbers output by the algorithm.
-2. Set the first two items in the resulting list to 0 and 1 respectively.
-3. For a remaining `n - 2` times (`n - 2` because the first two slots in the Fibonacci sequence are taken by 0 and 1. We're assuming `n > 2`), compute the next item in the list by adding the previous two.
-4. When the list's length is equal to `n`, we're done.
-
-This sequence of numbers has applications in mathematics and biology, but we're interested in it now because it's a known algorithm that we can implement. When you're programming, sometimes you must invent algorithms, and other times you implement existing ones. Most of the time, you're doing a bit of both.
-
-## Showing Users the Fibonacci Numbers
-
-Suppose we want to create a simple interface that visually displays the Fibonacci sequence to users. The user should be able to tell us how long of a list of Fibonacci numbers to display. After they input their answer, the interface should compute and display a sequence of the correct length.
-
-This user experience can be broken down into three distinct moments:
-
-* getting the number of results to compute from the user
-* computing an n-length list of Fibonacci numbers
-* displaying that list of numbers
-
-These seem like three bits of distinct functionality, so we have a good starting point for defining and implementing three distinct functions in a JavaScript program.
-
-
-## Implementing a Fibonacci UX
-
-Below, we've implemented a Fibonacci UX similar to what we just described. The key difference is that we've simplified the interface slightly. Instead of allowing the user to set the list length, we manually set its length to 20.
-
-Click on the play button of the repl.it below to see the first 20 Fibonacci numbers displayed:
-
-<iframe frameborder="0" height='500px' width="100%" src='https://repl.it/Gg0A/9'></iframe>
-
-Spend a minute reading over the JavaScript code above. Pay special attention to the comments (the bits of text preceded by `//`), which explain what the code is doing. *Don't* worry about learning the syntax. Instead, just try to get a feeling for the individual steps in the code, and how they work together.
-
-The architecture of this program (three distinct functions -- `generateFib`, `getFibListLength`, and `displayFibs` — which are together called by the `main` function) reflects the way we broke down our problem in plain language before beginning to code ("We need a way to determine how long the list should be", "We need a way to generate a list of Fibonacci numbers up to a certain length", "We need a way to display the list to a user").
-
-Programmers by definition must master one or more programming languages, but this ability to move from high level language to a clear set of instructions, and from there to implementing the instructions using clean code — that is the key skill of the programmer.
-
-Your goal in the remainder of this course is to become literate with JavaScript **and** to develop this more difficult skill of being a good programmer.
-
-## What is JavaScript?
-JavaScript is one of many programming languages, but it’s the only one available in all modern browsers.
-
-If you're looking for an in depth history of how JavaScript came about and why it's called "JavaScript", [Wikipedia](https://en.wikipedia.org/wiki/JavaScript) is a good starting point. We won't cover that history in here, but we do want you to understand at a high level what JavaScript is and how — as a language — its features are determined and changed over time. Part of being literate in a programming language is knowing a bit about how it gets created.
-
-What you do with JavaScript in the browser can be broken down into two categories: first, modeling and manipulating data and processes; second, interacting with browser elements (which are represented using HTML).
-
-The part of JavaScript that deals with modeling and manipulating data — that is, using variables, constants, strings, numbers, logic, functions, etc. — is specified by [ECMA](http://www.ecma-international.org/memento/history.htm) (the European Association for Standardizing Information and Communication Systems). This organization creates the ECMAscript specification, which is a description of *what* a language called ECMAscript should implement. It's up to individual browsers to decide *how* to implement the features called for by the ECMAscript specification.
-
-Here's (part of) [what the ECMA 6 spec states is the behavior of string literals](https://www.ecma-international.org/ecma-262/6.0/#sec-literals-string-literals
-), which is a term that refers to representing strings in JavaScript by using the syntax: `"foo bar"` or `'foo bar'`:
-
-> A string literal is zero or more Unicode code points enclosed in single or double quotes. Unicode code points may also be represented by an escape sequence. All code points may appear literally in a string literal except for the closing quote code points, U+005C (REVERSE SOLIDUS), U+000D (CARRIAGE RETURN), U+2028 (LINE SEPARATOR), U+2029 (PARAGRAPH SEPARATOR), and U+000A (LINE FEED). Any code points may appear in the form of an escape sequence. String literals evaluate to ECMAScript String values...
-
-This doesn't make for the most thrilling reading... But it provides a sense of what a specification for a programming language looks like. If you were writing a browser from scratch (yikes!) and wanted to support JavaScript, your JavaScript interpreter would need to understand string literals as laid out in the spec.
-
-Each individual browser is responsible for implementing the JavaScript spec. For instance, [v8](
-https://github.com/v8/v8), the JavaScript interpreter used by Google Chrome, is written in c++, and implements the set of features from the spec, listed [here](http://kangax.github.io/compat-table/es5/). The JavaScript interpreter is responsible for translating your JavaScript code into instructions the Chrome browser can execute.
-
-At time of writing, all modern web browsers implement ECMA's specification for version 5 of ECMAscript.
-
-In this curriculum, we'll use version 5 features plus a subset of features from version 6 of ECMAscript. As we introduce JavaScript topics, we'll clearly note when a feature is from ES6. While you don't need to worry about the details at this point, know that not all features from ES6 are natively supported by all of the major browsers. When considering whether or not to use newer language features in your code, resources like [caniuse.com](http://caniuse.com/) can help you understand which browsers support the feature.
-
-The part of JavaScript that deals with interacting with HTML elements — called the DOM (document object model) API, which we'll cover in unit 3 of this course — is specified by the [W3C](https://www.w3.org/DOM)(World Wide Web Consortium), which is the same organization that creates the specification for HTML.
-
-The key take away for you is this: *what* JavaScript is gets specified by the ECMA and W3C specs. Individual browsers handle the *how* of implementing the ECMA and W3C specifications. As a programmer, your experience of using JavaScript on any particular browser is — for the most part — uniform. But behind the scenes, that JavaScript is getting interpreted by a browser that may support all, or only a subset of the features and requirements listed in a version of the ECMA and W3C specs.
-
 ## Variable Basics
+
 A variable is a name that is attached to a value. Variables open up two possibilities.
 
 First, they give us a shorthand way to refer to values created elsewhere in a program. We can declare and define a variable once, and pass that value around in our code without having to rewrite it each time.
@@ -117,42 +28,6 @@ Second, variables give us a way to manage *state* in a program. *State* has to d
 Take a minute to read through the code comments in the JavaScript code in this Repl.it to get a sense of what it's doing. Click the "index.js" tab to see the JavaScript code, then click the "run" button at the top of the Repl.it to run the code. Remember, the goal at this moment is not to master the syntax; instead, we want you to start get a feel for this idea of *state*.
 
 In this simple program, the application state is maintained in a single `clickCount` variable. When the user clicks the button, we add 1 to the value currently stored in `clickCount`, display the updated click count to the user, then wait for any additional clicks, and when they happen, run the same instructions again. We say that in between successive calls to the function (that is, the `function(event) {....}` part of the code), the application's state is maintained in the `clickCount` variable. At any point when this program is running, the `clickCount` variable tells everyone else how many clicks have happened. Variables give us a way of persisting this information for the life of the program.
-
-In JavaScript, there are three commands we can use to declare space in memory where we'll store values: `let` and `var` declare a variable; `const` declares a constant. A constant cannot be reassigned to a new value. In our program, it makes sense that `clickCount` is a variable, not a constant, because that count is going to change over time.
-
-`const` and `let` are from ES6, the newer, preferred way to write JavaScript code. Nearly all the examples you'll see in the Web Development Bootcamp will use `const` or `let` and you should get into the habit of using them in your own code.
-
-The only downside to `let` and `const` is that they are not yet fully supported in all major browsers. [`let` is not supported by Opera Mini](http://caniuse.com/#search=let). [`const`, on the other hand, can be used in all browsers](http://caniuse.com/#search=const), but in Opera Mini, its behavior will be the same as `let` (more on that in a moment).
-
-We teach `let` and `const` in this course because they are *almost* universally supported and will be relatively soon. Later in this program, you'll learn how to *transpile* ES6 code into ES5 so it will run in all browsers. If that sounds confusing, don't worry: you'll understand what this means soon enough -- for now, just know that it's possible to translate ES6 JavaScript code into ES5 code that will run in all browsers.
-
-`var` is also used to create variables, and it is supported in all browsers. It's what you'll find in all pre-ES6 legacy code, and in the docs for the popular JavaScript library jQuery, which you'll learn about later in this curriculum. You should understand how `var` works because you'll undoubtedly encounter it. But unless you have a specific reason not to use `const` or `let`, you should abandon `var` entirely.
-
-
-## Defining constants with `const`
-
-`const` is used to define *constant* values, which is another way of saying *variables whose value cannot be reassigned*.
-
-```javascript
-const pi = 3.14159;
-console.log(pi); // => 3.14159
-```
-
-To create a constant using `const`, you type the `const` keyword, followed by the variable name, then an `=` sign (also known as the *assignment operator*), then the value you want to set the variable to, and finally a semi-colon. In the example above, we create a constant called `pi`, setting its value to 3.14159. We print its value by running `console.log(pi);`.
-
-If you try to reassign a constant created with `const` to be a new value. You'll get a `TypeError`:
-
-```javascript
-const pi = 3.14159;
-console.log(pi); // => 3.14159
-// on second thought, let's round to the nearest tenth place...
-pi = 3.1; // => TypeError
-```
-
-The defining feature of a constant is that its value cannot be changed, and the browser enforces this behavior. When you try to change the value of a constant, you'll get an error.
-
-Any time you need to declare a constant whose value will not change, use `const`.
-
 
 ## Defining variables with `let`
 
@@ -166,11 +41,9 @@ pi = 3.1;
 console.log(pi); // 3.1
 ```
 
-The syntax for creating a variable with `let` is identical to what we just saw with `const`. The only difference is the keyword (`let` vs. `const`).
-
 In this example, we initially create a variable `pi` whose value is 3.14159. We print out that value, then change the value of `pi` to 3.1, and then print that value. Because we've defined this variable using `let`, the browser allows us to assign a new value to `pi`.
 
-Another difference between `let` and `const` is that with `let`, we can initially *declare* a variable without yet assigning a value. When you *declare* a variable, you create a link between a variable name, and a place in the computer's memory that stores the value of that variable. The syntax for declaring a variable looks like this:
+We can initially *declare* a variable without yet assigning a value. When you *declare* a variable, you create a link between a variable name, and a place in the computer's memory that stores the value of that variable. The syntax for declaring a variable looks like this:
 
 ```javascript
 let myVar;
@@ -186,32 +59,6 @@ myVar = 6;
 ```
 
 Here we've said that the value of the variable `myVar` is 6, and that information is stored in memory.
-
-## Defining variables with `var`
-
-Creating variables with `var` is almost identical to creating them with `let`.
-
-```javascript
-var pi = 3.14159;
-console.log(pi); // => 3.14159
-// on second thought, let's round to the nearest tenth place...
-pi = 3.1;
-console.log(pi); // 3.1
-```
-
-The syntax above is identical to what we saw with `let`, except for the use of `var`.
-
-As with `let`, we can initially declare variables with `var`, without assigning a value.
-
-```javascript
-var myVar;
-myVar = 6;
-```
-
-At this point, you might be thinking that the behavior of `let` and `var` are identical. Although their behaviors largely overlap, they differ when it comes to *variable* scope, which a more advanced topic that we'll explore later in this curriculum.
-
-For now, the important thing is to understand that `var` is the older way of creating a variable. You should recognize it when you see it and know how to use it if you're working on code that uses this older style. Otherwise, you should use `const` or `let`.
-
 
 ## Naming variables
 
@@ -229,44 +76,8 @@ There are also best practices that you *should* follow. If you don't it won't ca
 * **camelCasing**: JavaScript developers have an unwritten agreement to use *camel-casing* for variable names. Camel-casing looks like this: `thisIsCamelCasing`. A camel-cased variable name starts with a lowercase letter, and then uses lowercase letters throughout, except for the first letter of any new words in the variable name after the first -- for these first letters, use uppercase. There are agreed upon cases where we use TitleCasing in JavaScript (for instance, when creating [object constructors](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/constructor#Examples), which is an advanced topic that you don't need to understand at the moment), but the general rule is use camel-casing.
 * **Choose meaningful variable names*: When we learned about HTML, we learned about the idea of *semantic HTML*, which says that the type of element we choose should reflect the type of content that element provides. In a similar way, when we choose variable names in JavaScript, we should choose names that reflect how the variable gets used in the program. A well chosen variable name can help other people reading the code to understand how the variable is intended to be used. In the click counter app at the top of this reading, we had the variable name `clickCount`. When you read that name, you already have a sense of what it does. If we had named that same variable `y`, the code would have worked exactly the same, but its meaning becomes less clear.
 
-## Avoid global variables!
-
-Later in this unit, you'll learn about the idea of *scope* in JavaScript, which has to do with which parts of your program are able to interact with particular variables. That's a more advanced topic, and it's too early to get into it, but we do want you to be aware of one guideline that falls out of an appreciation of scope: always avoid global variables.
-
-At this point in your learning, what that means is always avoid the following situation in your code:
-
-```javascript
-foo = 'bar';
-// do other stuff
-```
-
-The first line in this snippet is the offending one. We said above that when you define a variable in JavaScript, you should use the `let`  or `const` keyword. It turns out that you can actually leave out these keywords, and you'll still create a variable. The code snippet above will not trigger an error, but it will create a global variable, and that's to be avoided.
-
-JavaScript actually gives us a way to stop code like this from executing: *strict mode*. Strict mode is a setting you can apply at the top of a JavaScript file:
-
-```javascript
-'use strict';
-
-foo = 'bar'; // => Raises reference error
-```
-
-By using strict mode, we can ensure we never create global variables. Unless you have a specific reason not to, it's best to put 'use strict' at the top of all your JavaScript files.
-
-We're going to ask you to take this idea of avoiding global variables as a matter of faith. We'll explore it in greater depth later in this unit. For now, know that global variables tend to make code buggier and harder to reason about.
-
 ## Javascript Data Types
-A *data type* is a kind of value that variables can have in a given programming language. JavaScript has six data types: `String`, `Number`, `Boolean`, `Null`, `Undefined`, and `Object`.  Later in this unit, we'll explore numbers, strings, booleans, and objects in depth, but in this short reading, we'll give you a brief introduction to all 6 data types. The goal here is to give you a lay of the land, not for you to memorize all the information in this reading.
-
-After that, we'll discuss the idea of *coercion*, which has to do with how variables are converted from one type to another in JavaScript.
-
-
-## JavaScript's Data Types
-
-###### As we explore data types, we're going to make use of [`typeof`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/typeof), which is a built-in command JavaScript provides to see the data type of a particular value. So if you run `typeof 2`, the result would be "number".
-
-ES5 JavaScript has six or seven data types, depending on how you count them. Everyone agrees that the following are distinct data types in JavaScript: strings, numbers, Booleans, `null`, `undefined`, and `object`. JavaScript also has functions, which are not officially considered to be a data type, but if you look at their type (`typeof function() {}`), you get back "function".
-
-We'll also discuss functions as a special case here, recognizing that not everyone thinks they're really a distinct data type.
+A *data type* is a kind of value that variables can have in a given programming language. JavaScript has six data types: `String`, `Number`, `Boolean`, `Null`, `Undefined`, and `Object`. We'll give you a brief introduction to all 6 data types. The goal here is to give you a lay of the land, not for you to memorize all the information in this reading.
 
 ### Strings
 
