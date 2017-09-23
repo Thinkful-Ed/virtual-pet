@@ -1231,3 +1231,5 @@ There's more to learn about `this` in JavaScript (some of it heady), and we'll g
 # Building the Virtual Pet Project
 
 You'll be building your projects in Glitch. Glitch allows you to write code in your browser and instantly see (and keep) the live version of your site. [Here's the link](https://glitch.com/edit/#!/spotless-chemistry?path=README.md:1:0) to start building your virtual pet projects. 
+
+When you run into issues, make sure to raise your hand and ask your junior mentor for assistance.
