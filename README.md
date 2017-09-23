@@ -1228,3 +1228,6 @@ Instead of reusing the variable name `myFamily`, we use `this`. This is more mai
 
 There's more to learn about `this` in JavaScript (some of it heady), and we'll get a chance to explore it more in the next unit when we discuss using event handlers with jQuery. But for now, as you work with object literals, just understand that in object methods, `this` refers to the object itself, and gives you access to other properties and methods on the object.
 
+# Building the Virtual Pet Project
+
+You'll be building your projects in Glitch. Glitch allows you to write code in your browser and instantly see (and keep) the live version of your site. [Here's the link](https://glitch.com/edit/#!/spotless-chemistry?path=README.md:1:0) to start building your virtual pet projects. 
