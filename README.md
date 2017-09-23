@@ -85,24 +85,17 @@ Strings are delineated by opening and closing quotes (either single or double, b
 
 Strings are used to represent text. It's [*basically* the case](http://stackoverflow.com/a/11141331) that any character from the [Unicode](https://en.wikipedia.org/wiki/Unicode) character encoding scheme can be represented in a JavaScript string.
 
-We'll explore strings in depth later in this lesson.
-
 <img src="string-variables.gif" class="no-expand">
 
 ### Numbers
 
 The number type in JavaScript is used to represent numbers — both integer values (that is to say, whole numbers like 1, 2, 3, 10000000...) and floating point decimal numbers (that is, numbers like 1.234999).
 
-We'll explore numbers in depth later in this lesson.
-
 <img src="number-variables.gif" class="no-expand">
 
 ### `null`
 
 `null` is a special value used to indicate that a variable has no value. It's not uncommon to see code that defaults to assigning `null` when other data is not available.
-
-Be aware that if you run `typeof null` in JavaScript, you'll get an eyebrow-raising answer: "object". Even though `null` is a distinct data type, `typeof` says it's an object. This is a relic of a much earlier version of JavaScript that was not fixed in ES5 or ES6.
-
 
 ### booleans
 
@@ -116,8 +109,6 @@ if (!loggedIn) {
 ```
 
 Booleans signify truth and falsity. A boolean has two possible values: `true` and `false`. In the example above, we set `loggedIn` to false, and we then have a block of code that runs if and only if the user is not logged in. The `!` in `!loggedIn` inverts the Boolean value of the item to the right of it, so `!false` evaluates to `true` and `!true` evaluates to false.
-
-We'll learn more about Booleans in the lesson on application logic.
 
 ### `undefined`
 
@@ -138,11 +129,6 @@ function sayHello(personName) {
 ```
 
 Functions are values, but not in quite the same way as the preceding data types. Whereas numbers, strings, Booleans, null, and undefined all represent a discrete, specific value, a *function* describes a thing that's a bit hard to pin down: a set of instructions that can be run elsewhere. These instructions can create, manipulate and reference the simple data types described above.
-
-Like any other object, a function can be passed around your code, assigned to a variable, etcetera. You can write a set of instructions once, and invoke or call that set of instructions elsewhere in your code.
-
-We'll explore functions in depth later in this unit.
-
 
 ### objects
 
@@ -169,23 +155,6 @@ Note that [*arrays*](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Ref
 ```javascript
 const myFriends = ['Tweedle Dee', 'Tweedle Dum'];
 ```
-
-We'll cover these data types in detail in the remainder of this unit.
-
-## Coercion
-
-To close out this assignment, we want to make you aware of the idea of *coercion*. In JavaScript, if you try to use an operator — say the `+` operator — with two values who have different data types, JavaScript will *coerce* (that is, force) one of the variables to the data type of the other.
-
-```javascript
-const stringVar = 'Kilroy was here ';
-const numVar = 12;
-
-const combined = stringVar + numVar;
-typeof combined; // => string
-console.log(combined); // => Kilroy was here 12
-```
-
-The example above demonstrates that if you combine a number with a string using the `+` operator, the resulting value will be a string.
 
 ## Function Basics
 Functions are one of the most important concepts in programming. A function describes a repeatable process or behavior. You define that behavior once, and you can call it whenever you need to run your set of instructions.
