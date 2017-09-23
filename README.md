@@ -5,7 +5,9 @@ Today we’re going to get an introduction to JavaScript by building a [simple v
 
 [Thinkful](https://www.thinkful.com/) is hosting this event. Thinkful is a bootcamp that helps people become developers and data scientists through 1-on-1 mentorship and project-based learning.
 
-Today you’ll be working with junior Thinkful mentors to learn the key concepts and build the project. Lets get started!
+Today you’ll be working with junior Thinkful mentors to learn the key concepts and build the project. The lessons you see below are taken and abridged from Thinkful's full-stack developer program. As you read this, make sure to ask for help from your TA's when you're confused about a concept.  
+
+Lets get started!
 
 ## Programming in JavaScript
 
