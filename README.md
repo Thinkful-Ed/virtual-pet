@@ -1,11 +1,12 @@
 # Intro to JavaScript: Build a Virtual Pet
 
 ## Introduction
+
 Today we’re going to get an introduction to JavaScript by building a [simple virtual pet application](https://cumbersome-vole.glitch.me/). 
 
 [Thinkful](https://www.thinkful.com/) is hosting this event. Thinkful is a bootcamp that helps people become developers and data scientists through 1-on-1 mentorship and project-based learning.
 
-Today you’ll be working with junior Thinkful mentors to learn the key concepts and build the project. The lessons you see below are taken and abridged from Thinkful's full-stack developer program. As you read this, make sure to ask for help from your TA's when you're confused about a concept.  
+Today you’ll be working with junior Thinkful mentors to learn the key concepts and build the project. The lessons you see below are taken and abridged from Thinkful's full-stack developer program. As you read this, make sure to ask for help from your TA's when you're confused about a concept. If you're still stuck on a concept, just skip to the next section and come back to it once you start working on your project. 
 
 Lets get started!
 
