@@ -118,7 +118,7 @@ You should never directly set a value to `undefined`. It's fine to check if a va
 
 ### functions
 
-A function is a mini program that you define once in your code and invoke or call elsewhere. We saw three functions in the Fibonacci example earlier in this lesson: `generateFib`, `getFibListLength`, and `displayFibs`.
+A function is a mini program that you define once in your code and invoke or call elsewhere.
 
 ```javascript
 function sayHello(personName) {
@@ -146,14 +146,6 @@ const person = {
 
 console.log(person.name); // => Jane Doe
 person.greet(); // => Hello world
-```
-
-Here we've created an object called `person` that has a name property and a greet method.
-
-Note that [*arrays*](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array), which are basically just lists, are technically objects, but the syntax for creating them is different:
-
-```javascript
-const myFriends = ['Tweedle Dee', 'Tweedle Dum'];
 ```
 
 ## Function Basics
@@ -229,203 +221,13 @@ function averageOfTwo(num1, num2) {
 
 Just like in `hello` above, inside the function body (that is, any code between the {...} brackets) we can access the variables passed in as num1 and num2 when the function is called. `averageOfTwo` expects to be called with two numbers but it can handle any combination of real numbers sent in when it's called. It first adds together the two numbers, then divides that value by 2 to get the average, which it returns.
 
-## Function Declarations vs. Function Expressions
-
-There are two ways to define functions in JavaScript. The way we saw above...
-
-```javascript
-function myFunction() {
-  console.log("myFunction");
-}
-```
-
-...is called a *function declaration*.
-
-The other way to define a function is with a *function expression* and it looks like this:
-
-```javascript
-const myFunction = function(arg1, arg2) {
-  console.log("myFunction");
-};
-```
-
-These two functions behave the same when invoked, they mainly differ in the syntax used to define them. But there is also a difference in how the browser reads the function definition and can use it.
-
-Try copy and pasting the following snippet into your JavaScript console in Developer Tools:
-
-```javascript
-myFunction();
-
-function myFunction() {
-  console.log("Hello World");
-}
-```
-
-Note that we call `myFunction()` in the first line *before* we define it. That may strike you as odd: how does the browser know how to run the function if it hasn't encountered its definition yet? We'll answer this question in a moment, but let's first see what happens with a function expression:
-
-```javascript
-myFunction2();
-
-const myFunction2 = function() {
-  console.log("Hello World");
-}
-```
-
-If you copy and paste that into Developer Tools, and run it, you'll get an error message: `Uncaught TypeError: myFunction2 is not a function`. This behavior makes more intuitive sense. It *seems* like you really shouldn't be able to call a function if you haven't defined it. So why are we able to call the function before defining it when we use a function declaration (that is, the `function myFunction() {}` syntax)?
-
-The reason has to do with how browsers initially read in or *parse* JavaScript code. When the browser is loading an HTML page and encounters a `script` element, it opens the file pointed to by the `src` attribute. Before executing any code, it first looks through the entire file and finds any and all variables, and sets aside spaces in memory to store these variable names. At this point, these variable names don't have any value — they're set to `undefined` by default.  After the browser has created all the variables as undefined, it then reads through the code top to bottom, executing commands. This process is known as *hoisting*.
-
-In that same initial read-through where the browser is setting aside space in memory for undefined variables, when it encounters a function declaration, it also sets aside a space in memory. But instead of setting the function's initial value to undefined, it sets its value to the function block. This means that when the browser encounters:
-
-```javascript
-myFunction();
-
-const foo = 'foo';
-
-function myFunction() {
-  // do something
-}
-```
-
-It reads through this code once, initially setting aside space for `foo` in memory (whose value at this point is `undefined`) and setting aside space for `myFunction` (whose value is set to the instructions in the function's block).  It then reads through the code a second time to execute it. When it encounters `myFunction()` at execution time, it already knows that myFunction refers to a function.
-
-If this all sounds confusing, don't worry — it *is* objectively hard to wrap your head around, even for experienced programmers. For now, it's enough to know that there are two ways of defining functions. In the coming lessons you’ll begin to use functions regularly and you’ll build your intuition for when to write a function. We recommend that you consistently use function declarations over function expressions unless you have a specific reason to do otherwise. But at the same time, be aware that function expressions are valid, and if you join a team that prefers that style, you should adapt.
-
-## Default function parameters
-
-ES6 introduces a convenient new language feature to JavaScript: [default function parameters](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Default_parameters).
-
-Consider the following function:
-
-```javascript
-function tenPower(power = 2) {
-    return 10 ** power
-}
-
-tenPower() // => 100
-tenPower(1) // => 10
-tenPower(3) // => 1000
-```
-
-This function takes a single parameter: `power`. It then returns the value generated by raising 10 to that power.
-
-We've set a default value for power to be 2 (`power = 2`). This allows us to call the function without explicitly passing in a value for `power`. If we don't pass a value for `power`, we'll get the default value of 2, otherwise, we'll get the value we pass into our function.
-
-Note that it's possible to get the same kind of functionality in ES5, but it requires more lines of code:
-
-```javascript
-function tenPower(power) {
-    // this is a *conditional* block
-    // which you'll learn about later in this unit. 
-    // it reads "if not power"
-    if (!power) {
-        power = 2;
-    }
-    return 10 ** power
-}
-
-tenPower() // => 100
-tenPower(1) // => 10
-tenPower(3) // => 1000
-```
-
-In this example, if `tenPower` gets called without passing in a value for the `power` parameter, the line `if (!power)...` will evaluate to true (because power will be undefined), and `power` will get set to 2 (`power = 2`). We mention this alternative approach now not because you need to use it, but because you may see it in legacy code, and it's good to understand what's happening.
-
-You'll see examples of default function parameters throughout the Web Development Bootcamp, especially when we get to Node and React.
-
-## ES6 arrow functions
-
-ES6 introduces an additional, more compact way of creating functions: arrow functions, which get their name from the use of the so-called "fat arrow" `=>`.
-
-We'll use arrow functions extensively in the Node and React portions of this course, and we'll also use them later in this curriculum, when we begin working with arrays and anonymous functions (which are functions that you define and use just once).
-
-For now, we just want to introduce you to the syntax for arrow functions, so you'll recognize it when you see it.
-
-Below we have a function expression creating an `add` function, which returns the value of adding two numbers passed as parameters. We also have a comparable expression using the `function` keyword:
-
-```javascript
-const add = (num1, num2) => num1 + num2;
-add(2, 3) // => 5;
-
-// same as above
-const addAlt = function(num1, num2) {
-  return num1 + num2;
-}
-```
-
-In `add`, we enclose the function parameters in parentheses. Next we have the fat arrow `=>`. Finally we have a single statement that will be returned by the function. Even though there is no explicit `return` keyword here, the value `num1 + num2` will be returned by this function.
-
-Arrow functions can also be used for multi-line functions.
-
-```javascript
-const add = (num1, num2) => {
-  console.log('Adding', num1, num2);
-  return num1 + num2;
-};
-
-// same as above
-const addAlt = function(num1, num2) {
-  console.log('Adding', num1, num2);
-  return num1 + num2;
-}
-```
-
-
-When creating a multi-line arrow function, you use curly brackets (`{ }`), and if the function is meant to return a value, you have to include the `return` keyword like you do with `function`.
-
-Just like functions defined with `function`, arrow functions need not take any parameters. When defining an arrow function that takes no parameters, you use empty parens, followed by the fat arrow:
-
-
-```javascript
-const alertMe = () => alert("You've been alerted!");
-
-// same as
-const alertMeAlt = function() {
-  alert("You've been alerted");
-}
-```
-
-When defining an arrow function that takes a *single* parameter, the parentheses are optional:
-
-```javascript
-// `num % 2 === 0` evaluates to true if there
-// is no remainder when the number is divided
-// by 2, otherwise false. We'll learn more about
-// working with numbers soon!
-const isEven = num => num % 2 === 0;
-
-// same as
-
-const isEvenAlt = (num) => num % 2 === 0;
-
-// same as
-
-const isEvenAltAlt = function(num) {
-  return num % 2 === 0;
-}
-```
-
-
-## In conclusion
-
 If you're feeling a bit overwhelmed with all this new syntax, don't worry. For the moment, focus first on understanding the mental model for functions:
 
 * a function is a block of instructions that you can call in your code
 * some functions take arguments (or parameters), which are variables that the body of the function has access to
 * some functions can *return* a value, which means that they output a value that can be assigned to a variable
 
-For now, we also suggest focusing on mastering the `function` keyword. You'll get a chance to learn more about arrow functions later in this unit.
-
 ## Working with Strings
-In your life as a frontend web developer, you'll frequently work with strings. Here are some common scenarios where you need to understand strings:
-
-* validating form submissions
-* injecting data into an HTML template
-* alphabetically sorting a set of items by some property
-
-As you read through this assignment, we recommend typing up the code snippets in a Developer Tools JavaScript console.
-
-## What is a string?
 
 ```javascript
 const myVar = 'this is a string';
@@ -454,55 +256,6 @@ const innerText = 'The quick brown fox jumps over the lazy dog.'
 const paragraph = '<p>' + innerText + '</p>';
 console.log(paragraph) ;// => '<p>The quick brown fox jumps over the lazy dog.</p>'
 ```
-
-
-## Special Characters and Escaping
-
-Let's say you want to use the `"` character inside of a string that you're wrapping with double quotes — how can we do that?
-
-This is a case where we need to use a `\` backslash in order to *escape* the quotation mark delimiter:
-
-```javascript
-const heSaid = "He said, \"Foo!\"";
-console.log(heSaid); // => He said "Foo!"
-```
-
-In other contexts, the backslash is used to indicate special characters, such as line breaks and tabs. For instance, `'name:\tJohn'` would give us a string with "name:" and "John" separated by a tab.
-
-`\n` represents a new line, and is also commonly used.
-
-You can find a [full list of escaped special characters here](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String#Escape_notation).
-
-
-## Long strings
-
-At greater than ~80 characters per line, code gets difficult to read. If you need to represent a string that's larger than 80 characters, you can split it over multiple lines by using either the escape character (`\`) or by closing the quote, adding a `+` sign, and starting a new string on the next line. Both of the following are valid:
-
-```javascript
-const element = '<p>The quick brown fox jumps over the lazy dog. The \
-  quick brown fox jumps over the lazy dog. The quick brown fox jumps over \
-  the lazy dog.</p>';
-
-const element2 = '<p>The quick brown fox jumps over the lazy dog. The quick ' +
-  'brown fox jumps over the lazy dog. The quick brown fox jumps over the ' +
-  'lazy dog.</p>';
-```
-
-Also, know that *template strings*, which we discuss at the end of this assignment, provide a way to split text over multiple lines.
-
-## Comparing Strings
-
-You can use the `===` operator to compare two strings to see if they're identical.
-
-```javascript
-const string1 = 'foo';
-const string2 = 'foo';
-const string3 = 'bar';
-
-string1 === string2; // => true
-string2 === string3; // => false
-```
-
 ## String methods
 
 All strings in JavaScript share a number of built-in methods. Here are just a few:
@@ -519,48 +272,6 @@ fooBar.replace('foo', 'bar'); // => 'bar bar foo bar'
 ```
 
 You can find the full list at [Mozilla Developer Network](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String#String_instances).
-
-
-## Template strings in ES6
-
-One particularly useful new feature in ES6 is *template strings*. Template strings give us a way to refer to variables and execute JavaScript code inside of a string:
-
-```javascript
-const foo = 'foo';
-function sayHello() {
-  return 'hello ';
-}
-
-const myString = `foo is set to ${foo}. Let's say hello: ${sayHello()}`;
-```
-
-Template strings are indicated by surrounding text between opening and closing backticks (`` ` ``). Inside a template string, you can refer to variables or execute code by using `${}`.
-
-Template strings are especially valuable when you need to fill in details in a string from data you're getting from elsewhere. You might write code that handles generating text for greeting a user, and that refers to their home address. With ES6 template strings, you can write a string that gets filled in with values from variables defined in the surrounding code environment.
-
-Template strings can also include line breaks. If you want to use `'literal strings'` to write HTML, for instance, you would have to use concatenation (with `+`) to keep it looking neat.
-
-```javascript
-const badArtTips = (
-  '<p>How to draw an owl:</p>' +
-  '<ul>' +
-    '<li>Draw a circle</li>' +
-    '<li>Draw the rest of the owl</li>' +
-  '</ul>'
-);
-```
-
-With template literals, we do not need to concatenate.
-
-```javascript
-const badArtTips = (
-  `<p>How to draw an owl:</p>
-  <ul>
-    <li>Draw a circle</li>
-    <li>Draw the rest of the owl</li>
-  </ul>`
-);
-```
 
 ## Working with Numbers
 
@@ -624,33 +335,6 @@ console.log(counter) // => 9
 
 These compound operators allow us to change the value of a number variable in place — that is, we don't have to say `counter = counter + 1;`. Calling `counter ++` also increases the value of `counter` by 1.
 
-Note that you can also increment like this `++counter`. The difference between the two is illustrated here:
-
-```javascript
-let i = 0;
-let j = 0;
-
-// postfix operator
-let x = i++;
-
-// prefix operator
-let y = ++j;
-
-console.log(x); // 0
-console.log(i); // 1
-
-console.log(y); // 1
-console.log(j); // 1
-
-```
-
-With both the prefix (`++j`) and postfix (`i++`) operators, the original variable is incremented by 1 (that is, after running `++j`, `j` is equal to 1, and after running `i++`, `i` is equal to 1). The difference is in the value that is *returned* by the operator. When you run the `++` either before or after a variable, it returns a value. In the case of the prefix operator, it increments *before* it returns the value. In the case of the postfix operator, it increments *after* it returns the value.
-
-Note that operations can be grouped, as in Algebra, with parentheses. JavaScript handles *operator precedence* via *PEMDAS* (parenthesis, exponents, multiplication/division, addition/subtraction), which you may remember from grade school. So, for instance, in `let foo = 3 + 2 * 6 / 3`, foo will evaluate to 7 because we first do `2 * 6  /  3`, which gives us 4, and add that to 3, for 7.
-
-You can read more about arithmetic operators [here on Mozilla Developer Network](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Arithmetic_Operators).
-
-
 ### Comparing numbers
 
 Numbers can be compared using the following operators:
@@ -674,50 +358,12 @@ foo === 1 // => true
 foo >= foo + bar // false
 ```
 
-
-### Built-in Math Methods
-
-Although we do not cover it here, JavaScript has a built-in `Math` object which has methods for various mathematical operations like random number generation, rounding, getting absolute value, etc. You can read more about `Math` [here](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math).
-
 ## Making Logical Assertions
+An assertion is a statement that evaluates to either true or false — for example: `true === true` or `1 <= 5`.
 
-
-In this reading, we'll introduce how to make logical assertions in JavaScript. An assertion is a statement that evaluates to either true or false — for example: `true === true` or `1 <= 5`.
-
-Used in combination with `if` and `else`, which we'll discuss in the next reading, logical assertions allow us to write conditional logic into our programs. We can tell our code to carry out one set of instructions if our assertion is true, and another if it is false.
-
-Fair warning: you may find the content in this reading in particular to be a bit dry. Just remember that in order to correctly reason about how JavaScript code works, you need to understand which kinds of values JavaScript thinks of as `true` vs. `false`, and understand how to make logical assertions that evaluate to `true` or `false`.
-
-## Truth in JavaScript
-
-Before discussing logical operators, which compare the truth value of two assertions, we need to understand the way JavaScript evaluates individual assertions as true or false.
-
-To explore how JavaScript thinks about truth and falsity, we're going to use the built in `Boolean` function, which is used to convert a value into either `true` or `false`.
-
-![dev-tools-truth.gif](dev-tools-truth.gif)
-
-
-Open the JavaScript console in Developer Tools and try out variations on the statements above.
-
-The easiest way to remember which values are true and which ones are false in JavaScript is to memorize the "falsy" ones (that is, the values other than `false` that evaluate to `false` when coerced to a boolean):
-
-```javascript
-// values that evaluate to false
-Boolean(false);
-Boolean(""); // empty string
-Boolean(0);
-Boolean(null);
-Boolean(undefined);
-Boolean(NaN);
-```
-
-![falsy-values.gif](falsy-values.gif)
-
-If it's not `false`, `""`, `0`, `null`, `undefined`, or `NaN`, it evaluates to `true`. That's the rule. That means that negative numbers, empty arrays (`[]`, which we'll learn about later), and empty objects (`{}`, which we'll also learn about later) all evaluate to `true`.
-
+Used in combination with `if` and `else`, logical assertions allow us to write conditional logic into our programs. We can tell our code to carry out one set of instructions if our assertion is true, and another if it is false.
 
 ## Logical Operators
-
 Logical operators are used to make assertions about two or more statements or values. Let's start with `&&` (logical and), which is used to assert whether or not two statements are true. If you run `true && false` in a JavaScript console, you'll see that you get `false`. JavaScript checks to see if *both* expressions evaluate to true, and if so, it returns true. (Technically it returns the second value if the first one is true; this is sometimes useful, since other things count as false than just the boolean value.)
 
 In the case of `true && false`, both values being compared are already Booleans, so no conversion takes place. Since one side of the `&&` is false, the whole assertion evaluates to false.
@@ -736,24 +382,10 @@ foo && bar; // => false
 !bar; // => true
 ```
 
-
-## Equality, strict equality, and coercion
-
-We've already come across the strictly equals operator `===`.  Now that we have discussed truthiness and how different values get converted into boolean values, we're in a position to understand how `===` strict equality differs from simple equality `==`.
-
-If you run `true === 1` , you'll see that this evaluates to `false`. While `true` and `1` are both truthy values (that is to say, the boolean value of 1 is `true`), `true` is a boolean value, while `1` is a number. The strict equality operator `===` first compares data type of the two items being compared, and if they're not the same data type (as in this case), it returns `false`. If they are the same type, it then checks to see if they have the same value. Checking the type of both sides of the comparison — this is what makes the strict equality operator *strict*.
-
-The `==` operator in JavaScript has a looser notion of equality. When it compares two items, if it finds that the two values are not of the same type, it *coerces* (or converts) one of the value types to the type of the other.  So `true == 1` evaluates to `true`, because when you have a boolean and a number, the number gets converted to a boolean, and Boolean(1) is `true`.
-
-![two-equalities.gif](two-equalities.gif)
-
 ## Control Folow and Conditionals
-In this reading, we discuss *control flow*. Control flow dictates how programs execute different sets of instructions based on differing conditions. You might have one branch that executes if a condition is true, and another that executes if it's false. That's control flow, and it's a powerful tool.
-
-We're going to discuss two ways of achieving control flow: conditionals (`if`, `else`, `else if`) and `try/catch/finally` blocks.
+Control flow dictates how programs execute different sets of instructions based on differing conditions. You might have one branch that executes if a condition is true, and another that executes if it's false. That's control flow, and it's a powerful tool.
 
 ## Conditionals `if`, `else`, `else if`
-
 JavaScript gives us three keywords for working with conditionality: `if`, `else`, and `else if`. Let's start with an example of `if`:
 
 ```javascript
@@ -784,66 +416,6 @@ function analyzeNumber(num) {
   }
 }
 ```
-
-A common pattern is to set a variable's value to a default value and then reassign it based on one or more conditional statements:
-
-```javascript
-let myVar = null;
-if (condition1) {
-  myVar = 'something other than default';
-}
-```
-
-JavaScript gives us the [*ternary* operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_Operator) as a shortcut for this situation:
-
-```javascript
-let myVar = condition1 ? 'something other than default' : null;
-```
-
-The syntax for a ternary operator is a logical expression (or something that can be coerced to a boolean) followed by the `?` operator, followed by the value to be returned if the condition is `true`, followed by the `:` operator, and finally the value to be returned if the condition is not true.
-
-Ternary operators and assignment via ternary operators are common in JavaScript code, and you should expect to encounter them frequently.
-
-And expect to encounter `if` and `else` even more frequently.
-
-
-## `try`/`catch`/`finally`
-
-JavaScript gives us three commands (`try`, `catch`, `finally`) for dealing with conditional logic in the case of *errors*. These language constructs allow us to specify a block of behavior that is to be tried (the `try` block). If that does not succeed, the behavior in the `catch` block runs. And in either the success or failure case, the instructions in the `finally` block will run. Note that `try` and `catch` can be used without `finally`.
-
-```javascript
-try  {
-  // this will raise an error because
-  // nonExistentVariable is undefined
-  nonexistentVariable += 'foo';
-}
-catch (e) {
- // this block runs if the try block fails. `e`
- // is an object representing the error
- console.log('Something went wrong');
- console.dir(e);
-}
-finally {
-  console.log('This happens in both success and failure case!');
-}
-```
-
-The `e` that you see in `catch(e)` will be an object representing the error. You'll learn more about objects later in this unit, but for now, just know that the error object will have information about the error that occurred.
-
-Also, note that there's nothing forcing you to refer to the error as `e` in `catch(e)`. It's also common to see `catch(err)`, and in principle you could name that parameter whatever you'd like. But stick to `e` or `err` since those are the conventions. And know that inside the `catch` block, you refer to whatever variable name you pass to `catch()`.
-
-Another thing to be aware of: in this example we did something to intentionally throw an error (namely, concatenating text to an non-existent variable). We could have also made use of the `throw` keyword to intentionally raise an error:
-
-```javascript
-try {
-  throw 'myException';
-}
-catch (e) {
-  // do something
-}
-```
-
-Finally, know that when a catch block runs, the error no longer "bubbles up" like it would otherwise. The browser will run the catch block and then continue running the next line of code. This is in contrast to an uncaught error, which bubbles up and stops code execution.
 
 ## Object Basics
 Objects are a *complex* data type that allow you to bring together common properties and behaviors into a single entity.  Objects provide an excellent way of organizing code that belongs together, help you avoid global variables, and let us represent individual instances of some model.
@@ -967,46 +539,6 @@ const foo = {
 delete foo.bar;
 console.log(foo.bar); // => undefined
 ```
-
-
-### Self reference and `this`
-
-In the `myFamily` object we looked at earlier, we added a method called `sayHi` that made use of *self-reference*:
-
-```
-const myFamily = {
-  lastName: 'Doe',
-  mom: 'Cynthia',
-  dad: 'Paul',
-  sayHi: function() {
-    console.log(`Hello from the ${myFamily.lastName}s`);
-  }
-};
-
-myFamily.sayHi() // => Hello from the Does
-```
-
-The `sayHi` method is able to refer to other properties on the object (in this case `lastName`). In this example, we've achieved self reference by repeating the variable name (`myFamily`) inside the `sayHi` method.
-
-Usually the way we do this, though, is with the `this` keyword, which we use to achieve self reference. The example above could be re-written like this:
-
-```javascript
-const myFamily = {
-  lastName: 'Doe',
-  mom: 'Cynthia',
-  dad: 'Paul',
-  sayHi: function() {
-    console.log(`Hello from the ${this.lastName}s`);
-  }
-};
-
-myFamily.sayHi() // => Hello from the Does
-```
-
-
-Instead of reusing the variable name `myFamily`, we use `this`. This is more maintainable because our `sayHi` function is no longer coupled with the variable name.
-
-There's more to learn about `this` in JavaScript (some of it heady), and we'll get a chance to explore it more in the next unit when we discuss using event handlers with jQuery. But for now, as you work with object literals, just understand that in object methods, `this` refers to the object itself, and gives you access to other properties and methods on the object.
 
 # Building the Virtual Pet Project
 
