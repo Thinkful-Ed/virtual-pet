@@ -77,6 +77,7 @@ There are also best practices that you *should* follow. If you don't it won't ca
 * **Choose meaningful variable names*: When we learned about HTML, we learned about the idea of *semantic HTML*, which says that the type of element we choose should reflect the type of content that element provides. In a similar way, when we choose variable names in JavaScript, we should choose names that reflect how the variable gets used in the program. A well chosen variable name can help other people reading the code to understand how the variable is intended to be used. In the click counter app at the top of this reading, we had the variable name `clickCount`. When you read that name, you already have a sense of what it does. If we had named that same variable `y`, the code would have worked exactly the same, but its meaning becomes less clear.
 
 ## Javascript Data Types
+
 A *data type* is a kind of value that variables can have in a given programming language. JavaScript has six data types: `String`, `Number`, `Boolean`, `Null`, `Undefined`, and `Object`. We'll give you a brief introduction to all 6 data types. The goal here is to give you a lay of the land, not for you to memorize all the information in this reading.
 
 ### Strings
@@ -359,11 +360,13 @@ foo >= foo + bar // false
 ```
 
 ## Making Logical Assertions
+
 An assertion is a statement that evaluates to either true or false — for example: `true === true` or `1 <= 5`.
 
 Used in combination with `if` and `else`, logical assertions allow us to write conditional logic into our programs. We can tell our code to carry out one set of instructions if our assertion is true, and another if it is false.
 
 ## Logical Operators
+
 Logical operators are used to make assertions about two or more statements or values. Let's start with `&&` (logical and), which is used to assert whether or not two statements are true. If you run `true && false` in a JavaScript console, you'll see that you get `false`. JavaScript checks to see if *both* expressions evaluate to true, and if so, it returns true. (Technically it returns the second value if the first one is true; this is sometimes useful, since other things count as false than just the boolean value.)
 
 In the case of `true && false`, both values being compared are already Booleans, so no conversion takes place. Since one side of the `&&` is false, the whole assertion evaluates to false.
@@ -383,9 +386,11 @@ foo && bar; // => false
 ```
 
 ## Control Folow and Conditionals
+
 Control flow dictates how programs execute different sets of instructions based on differing conditions. You might have one branch that executes if a condition is true, and another that executes if it's false. That's control flow, and it's a powerful tool.
 
 ## Conditionals `if`, `else`, `else if`
+
 JavaScript gives us three keywords for working with conditionality: `if`, `else`, and `else if`. Let's start with an example of `if`:
 
 ```javascript
@@ -418,6 +423,7 @@ function analyzeNumber(num) {
 ```
 
 ## Object Basics
+
 Objects are a *complex* data type that allow you to bring together common properties and behaviors into a single entity.  Objects provide an excellent way of organizing code that belongs together, help you avoid global variables, and let us represent individual instances of some model.
 
 For instance, you can take the idea of a person and come up with a generalized model of that person’s attributes. A person has a name, and can say hello. Then we can have individual instances of that `person` model. We might have an individual person named "Sue" who greets others by saying "Howdy y'all", and another individual person named "Greta" who greets others by saying "Hi there".  All instances of a person share these traits (they have a name and can greet others).
